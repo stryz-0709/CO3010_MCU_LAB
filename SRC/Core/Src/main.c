@@ -91,9 +91,42 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  int state = 0;
+  int time = 200;
+  int counter = time;
   while (1)
   {
     /* USER CODE END WHILE */
+	  switch (state){
+	  case 0:
+		  counter--;
+		  if (counter <= 0){
+			  counter = time;
+			  state = 1;
+			  HAL_GPIO_WritePin(LED_YELLOW_1_GPIO_Port, LED_YELLOW_1_Pin, GPIO_PIN_SET);
+			  HAL_GPIO_WritePin(LED_RED_1_GPIO_Port, LED_RED_1_Pin, GPIO_PIN_RESET);
+		  }
+		  else{
+			  HAL_GPIO_WritePin(LED_RED_1_GPIO_Port, LED_RED_1_Pin, GPIO_PIN_SET);
+			  HAL_GPIO_WritePin(LED_YELLOW_1_GPIO_Port, LED_YELLOW_1_Pin, GPIO_PIN_RESET);
+		  }
+		  break;
+
+	  case 1:
+		  counter--;
+		  if (counter <= 0){
+			  counter = time;
+			  state = 0;
+			  HAL_GPIO_WritePin(LED_RED_1_GPIO_Port, LED_RED_1_Pin, GPIO_PIN_SET);
+			  HAL_GPIO_WritePin(LED_YELLOW_1_GPIO_Port, LED_YELLOW_1_Pin, GPIO_PIN_RESET);
+		  }
+		  else{
+			  HAL_GPIO_WritePin(LED_YELLOW_1_GPIO_Port, LED_YELLOW_1_Pin, GPIO_PIN_SET);
+			  HAL_GPIO_WritePin(LED_RED_1_GPIO_Port, LED_RED_1_Pin, GPIO_PIN_RESET);
+		  }
+		  break;
+	  }
+	  HAL_Delay(10);
 
     /* USER CODE BEGIN 3 */
   }
