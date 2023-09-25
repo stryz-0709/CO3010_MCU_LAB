@@ -88,7 +88,9 @@ uint16_t pins[12] = {LED_0_Pin, LED_1_Pin, LED_2_Pin, LED_3_Pin,
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-
+  void clearAllClock(){
+	  for (int i = 0; i < 12; i++) HA_GPIO_WritePin(GPIOA, pins[i], SET);
+  }
   /* USER CODE END 2 */
 
   /* Infinite loop */
