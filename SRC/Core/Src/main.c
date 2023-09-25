@@ -89,15 +89,15 @@ uint16_t pins[12] = {LED_0_Pin, LED_1_Pin, LED_2_Pin, LED_3_Pin,
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
   void clearAllClock(){
-	  for (int i = 0; i < 12; i++) HAL_GPIO_WritePin(GPIOA, pins[i], RESET);
+	  for (int i = 0; i < 12; i++) HAL_GPIO_WritePin(GPIOA, pins[i], SET);
   }
 
   void setNumberOnClock(int num){
-	  HAL_GPIO_WritePin(GPIOA, pins[num], SET);
+	  HAL_GPIO_WritePin(GPIOA, pins[num], RESET);
   }
 
   void clearNumberOnClock(int num){
-	  HAL_GPIO_WritePin(GPIOA, pins[num], RESET);
+	  HAL_GPIO_WritePin(GPIOA, pins[num], SET);
   }
   /* USER CODE END 2 */
 
@@ -121,7 +121,7 @@ uint16_t pins[12] = {LED_0_Pin, LED_1_Pin, LED_2_Pin, LED_3_Pin,
     setNumberOnClock(minute/5);
     setNumberOnClock(hour%12);
     second++;
-    HAL_Delay(1000);
+    HAL_Delay(10);
   }
   /* USER CODE BEGIN 3 */
   /* USER CODE END 3 */
