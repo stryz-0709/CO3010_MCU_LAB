@@ -95,6 +95,10 @@ uint16_t pins[12] = {LED_0_Pin, LED_1_Pin, LED_2_Pin, LED_3_Pin,
   void setNumberOnClock(int num){
 	  HAL_GPIO_WritePin(GPIOA, pins[num], RESET);
   }
+
+  void clearNumberOnClock(int num){
+	  HAL_GPIO_WritePin(GPIOA, pins[num], SET);
+  }
   /* USER CODE END 2 */
 
   /* Infinite loop */
