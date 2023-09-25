@@ -89,31 +89,41 @@ uint16_t pins[12] = {LED_0_Pin, LED_1_Pin, LED_2_Pin, LED_3_Pin,
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
   void clearAllClock(){
-	  for (int i = 0; i < 12; i++) HA_GPIO_WritePin(GPIOA, pins[i], SET);
+	  for (int i = 0; i < 12; i++) HAL_GPIO_WritePin(GPIOA, pins[i], RESET);
   }
 
   void setNumberOnClock(int num){
-	  HAL_GPIO_WritePin(GPIOA, pins[num], RESET);
+	  HAL_GPIO_WritePin(GPIOA, pins[num], SET);
   }
 
   void clearNumberOnClock(int num){
-	  HAL_GPIO_WritePin(GPIOA, pins[num], SET);
+	  HAL_GPIO_WritePin(GPIOA, pins[num], RESET);
   }
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  int counter = 0;
+  int hour = 0, minute = 0, second = 0;
   while (1)
   {
     /* USER CODE END WHILE */
-
-	  if(counter >= 1200) counter = 0;
-	  if(counter%100 == 0) HAL_GPIO_TogglePin(GPIOA, pins[counter/100]);
-	  counter++;
-	  HAL_Delay(10);
-    /* USER CODE BEGIN 3 */
+    if(second == 60){
+	  second = 0;
+	  minute++;
+    }
+    if(minute == 60){
+	  minute = 0;
+	  hour++;
+    }
+    if(hour == 24) hour = 0;
+    clearAllClock();
+    setNumberOnClock(second/5);
+    setNumberOnClock(minute/5);
+    setNumberOnClock(hour%12);
+    second++;
+    HAL_Delay(1000);
   }
+  /* USER CODE BEGIN 3 */
   /* USER CODE END 3 */
 }
 
